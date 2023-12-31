@@ -11,18 +11,18 @@ public class AllowedKeyAuthHandler(
 	ILoggerFactory logger,
 	UrlEncoder encoder) : AuthenticationHandler<AllowedKeyOptions>(options, logger, encoder)
 {
-	private readonly HashSet<string> AllowedKeys = [.. options.CurrentValue.Values];
-
 	protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
 	{
+		var allowedKeys = Options.Values.ToHashSet();
+
 		if (Request.Headers.TryGetValue("api-key", out var headerKeyValue))
 		{
-			if (AllowedKeys.Contains(headerKeyValue)) return await Task.FromResult(AuthenticateResult.Success(ApiUser()));
+			if (allowedKeys.Contains(headerKeyValue)) return await Task.FromResult(AuthenticateResult.Success(ApiUser()));
 		}
 
 		if (Request.Query.TryGetValue("api-key", out var queryKeyValue))
 		{
-			if (AllowedKeys.Contains(queryKeyValue)) return await Task.FromResult(AuthenticateResult.Success(ApiUser()));
+			if (allowedKeys.Contains(queryKeyValue)) return await Task.FromResult(AuthenticateResult.Success(ApiUser()));
 		}
 
 		return await Task.FromResult(AuthenticateResult.Fail("Invalid login attempt"));
