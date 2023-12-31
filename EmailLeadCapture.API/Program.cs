@@ -1,8 +1,9 @@
 using EmailLeadCapture.API;
-using EmailLeadCapture.API.Models;
 using HashidsNet;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Configuration.AddJsonFile("appsettings.Secret.json", optional: true, reloadOnChange: true);
 
 builder.Services.AddScoped((sp) => new Hashids(builder.Configuration["HashIds:Salt"], int.Parse(builder.Configuration["HashIds:MinLength"]!)));
 
@@ -20,7 +21,7 @@ var app = builder.Build();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapGet("/", () => "Hello World!");
+app.MapGet("/", () => "AO Lead Capture API");
 
 var apiRoutes = app.MapGroup("/api").RequireAuthorization();
 

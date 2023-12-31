@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 
-namespace EmailLeadCapture.API.Models;
+namespace EmailLeadCapture.API;
 
 public class AllowedKeyOptions : AuthenticationSchemeOptions
-{	
-	public string[] Values { get; set; } = [];
+{
+    public string[] Values { get; set; } = [];
 }
