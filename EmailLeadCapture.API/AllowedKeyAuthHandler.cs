@@ -16,12 +16,12 @@ public class AllowedKeyAuthHandler(
 
 		if (Request.Headers.TryGetValue("api-key", out var headerKeyValue))
 		{
-			if (allowedKeys.Contains(headerKeyValue)) return await Task.FromResult(AuthenticateResult.Success(ApiUser()));
+			if (allowedKeys.Contains(headerKeyValue!)) return await Task.FromResult(AuthenticateResult.Success(ApiUser()));
 		}
 
 		if (Request.Query.TryGetValue("api-key", out var queryKeyValue))
 		{
-			if (allowedKeys.Contains(queryKeyValue)) return await Task.FromResult(AuthenticateResult.Success(ApiUser()));
+			if (allowedKeys.Contains(queryKeyValue!)) return await Task.FromResult(AuthenticateResult.Success(ApiUser()));
 		}
 
 		return await Task.FromResult(AuthenticateResult.Fail("Invalid login attempt"));
