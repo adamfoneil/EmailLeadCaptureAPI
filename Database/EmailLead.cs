@@ -1,4 +1,5 @@
 ﻿using Dapper.Entities.Interfaces;
+using System.ComponentModel.DataAnnotations;
 
 namespace EmailLeadCapture.Database;
 
@@ -12,7 +13,7 @@ public enum OptStatus
 
 public class EmailLead : IEntity<int>
 {
-	public int Id { get; set; }	
+	public int Id { get; set; }
 	public string Application { get; set; } = default!;
 	public string Email { get; set; } = default!;
 	public DateTime DateCreatedUtc { get; set; } = DateTime.UtcNow;	

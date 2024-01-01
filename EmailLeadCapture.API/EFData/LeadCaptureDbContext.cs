@@ -14,6 +14,11 @@ public class LeadCaptureDbContext(string connectionString) : DbContext
 	{
 		optionsBuilder.UseNpgsql(ConnectionString);
 	}
+
+	protected override void OnModelCreating(ModelBuilder modelBuilder)
+	{
+		modelBuilder.Entity<EmailLead>().HasAlternateKey(nameof(EmailLead.Application), nameof(EmailLead.Email));
+	}
 }
 
 public class LeadCaptureDbContextFactory : IDesignTimeDbContextFactory<LeadCaptureDbContext>

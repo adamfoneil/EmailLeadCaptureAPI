@@ -1,4 +1,5 @@
 using EmailLeadCapture.API;
+using EmailLeadCapture.Database;
 using HashidsNet;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,9 @@ builder.Services.AddAuthentication("AllowedKeys")
 
 builder.Services.AddAuthorization();
 
+builder.Services.Configure<ConnectionStrings>(builder.Configuration.GetSection("ConnectionStrings"));
+builder.Services.AddSingleton<LeadCaptureDatabase>();
+
 var app = builder.Build();
 app.UseAuthentication();
 app.UseAuthorization();
@@ -28,6 +32,12 @@ var apiRoutes = app.MapGroup("/api").RequireAuthorization();
 apiRoutes.MapGet("/encode", (int number, Hashids hashIds) =>
 {
 	return new { value = hashIds.Encode(number) };
+});
+
+apiRoutes.MapPost("/save", async (LeadCaptureDatabase database, EmailLead emailLead) =>
+{
+	emailLead.Id = 0; // ensure insert
+	await database.EmailLeads.SaveAsync(emailLead);
 });
 
 app.Run();

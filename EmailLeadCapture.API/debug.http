@@ -1,0 +1,9 @@
+POST http://localhost:49156/api/save?api-key=juniper
+Content-Type: application/json
+
+{
+	"Application": "sample",
+	"Email": "adamosoftware@gmail.com"
+}
+
+###
