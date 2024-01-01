@@ -1,4 +1,6 @@
+using Dapper;
 using EmailLeadCapture.API;
+using EmailLeadCapture.API.Queries;
 using EmailLeadCapture.Database;
 using HashidsNet;
 
@@ -34,11 +36,21 @@ apiRoutes.MapGet("/encode", (int number, Hashids hashIds) =>
 	return new { value = hashIds.Encode(number) };
 });
 
-apiRoutes.MapPost("/save", async (LeadCaptureDatabase database, EmailLead emailLead) =>
+apiRoutes.MapGet("/applications", async (LeadCaptureDatabase database, Hashids hashIds) =>
 {
-	emailLead.Id = 0; // ensure insert
-	emailLead.DateCreatedUtc = DateTime.UtcNow;
-	await database.EmailLeads.SaveAsync(emailLead);
+	var results = await new ListApplications().ExecuteAsync(database.GetConnection);
+	return results.Select(row => new { row.Name, id = hashIds.Encode(row.Id) });
+});
+
+apiRoutes.MapPost("/{appId}/save", async (string appId, Hashids hashIds, LeadCaptureDatabase database, string email) =>
+{
+	var applicationId = hashIds.DecodeSingle(appId);
+	await database.EmailLeads.SaveAsync(new()
+	{
+		ApplicationId = applicationId,
+		Email = email
+	});
+	// todo: send email with link to confirmation page
 });
 
 app.Run();
