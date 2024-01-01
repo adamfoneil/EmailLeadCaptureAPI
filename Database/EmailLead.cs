@@ -1,5 +1,5 @@
 ﻿using Dapper.Entities.Interfaces;
-using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EmailLeadCapture.Database;
 
@@ -11,6 +11,7 @@ public enum OptStatus
 	Out = 0
 }
 
+[Table("EmailLead")]
 public class EmailLead : IEntity<int>
 {
 	public int Id { get; set; }

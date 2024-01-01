@@ -37,6 +37,7 @@ apiRoutes.MapGet("/encode", (int number, Hashids hashIds) =>
 apiRoutes.MapPost("/save", async (LeadCaptureDatabase database, EmailLead emailLead) =>
 {
 	emailLead.Id = 0; // ensure insert
+	emailLead.DateCreatedUtc = DateTime.UtcNow;
 	await database.EmailLeads.SaveAsync(emailLead);
 });
 

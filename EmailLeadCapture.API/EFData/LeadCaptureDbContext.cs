@@ -17,7 +17,7 @@ public class LeadCaptureDbContext(string connectionString) : DbContext
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
-		modelBuilder.Entity<EmailLead>().HasAlternateKey(nameof(EmailLead.Application), nameof(EmailLead.Email));
+		modelBuilder.Entity<EmailLead>().HasAlternateKey(nameof(EmailLead.Application), nameof(EmailLead.Email));		
 	}
 }
 
