@@ -3,6 +3,7 @@ using System;
 using EmailLeadCapture.API.EFData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EmailLeadCapture.API.Migrations
 {
     [DbContext(typeof(LeadCaptureDbContext))]
-    partial class LeadCaptureDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240101194941_AppTable")]
+    partial class AppTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,26 +24,6 @@ namespace EmailLeadCapture.API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("EmailLeadCapture.Database.Application", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.HasKey("Id");
-
-                    b.HasAlternateKey("Name");
-
-                    b.ToTable("application");
-                });
 
             modelBuilder.Entity("EmailLeadCapture.Database.EmailLead", b =>
                 {
@@ -58,8 +41,7 @@ namespace EmailLeadCapture.API.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasColumnType("text");
 
                     b.Property<int>("OptStatus")
                         .HasColumnType("integer");
@@ -72,20 +54,6 @@ namespace EmailLeadCapture.API.Migrations
                     b.HasAlternateKey("ApplicationId", "Email");
 
                     b.ToTable("email_lead");
-                });
-
-            modelBuilder.Entity("EmailLeadCapture.Database.EmailLead", b =>
-                {
-                    b.HasOne("EmailLeadCapture.Database.Application", null)
-                        .WithMany("EmailLeads")
-                        .HasForeignKey("ApplicationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("EmailLeadCapture.Database.Application", b =>
-                {
-                    b.Navigation("EmailLeads");
                 });
 #pragma warning restore 612, 618
         }

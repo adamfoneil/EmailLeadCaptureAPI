@@ -3,6 +3,7 @@ using System;
 using EmailLeadCapture.API.EFData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EmailLeadCapture.API.Migrations
 {
     [DbContext(typeof(LeadCaptureDbContext))]
-    partial class LeadCaptureDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240101200044_AppTable2")]
+    partial class AppTable2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,8 +39,6 @@ namespace EmailLeadCapture.API.Migrations
                         .HasColumnType("character varying(50)");
 
                     b.HasKey("Id");
-
-                    b.HasAlternateKey("Name");
 
                     b.ToTable("application");
                 });
@@ -72,20 +73,6 @@ namespace EmailLeadCapture.API.Migrations
                     b.HasAlternateKey("ApplicationId", "Email");
 
                     b.ToTable("email_lead");
-                });
-
-            modelBuilder.Entity("EmailLeadCapture.Database.EmailLead", b =>
-                {
-                    b.HasOne("EmailLeadCapture.Database.Application", null)
-                        .WithMany("EmailLeads")
-                        .HasForeignKey("ApplicationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("EmailLeadCapture.Database.Application", b =>
-                {
-                    b.Navigation("EmailLeads");
                 });
 #pragma warning restore 612, 618
         }

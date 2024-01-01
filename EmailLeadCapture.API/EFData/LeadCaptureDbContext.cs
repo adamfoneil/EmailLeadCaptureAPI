@@ -9,6 +9,7 @@ public class LeadCaptureDbContext(string connectionString) : DbContext
 	private readonly string ConnectionString = connectionString;
 
 	public DbSet<EmailLead> EmailLeads { get; set; }
+	public DbSet<Application> Applications { get; set; }
 
 	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 	{
@@ -17,7 +18,9 @@ public class LeadCaptureDbContext(string connectionString) : DbContext
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
-		modelBuilder.Entity<EmailLead>().HasAlternateKey(nameof(EmailLead.Application), nameof(EmailLead.Email));		
+		modelBuilder.Entity<EmailLead>().HasAlternateKey(nameof(EmailLead.ApplicationId), nameof(EmailLead.Email));
+
+		modelBuilder.Entity<Application>().HasAlternateKey(nameof(Application.Name));		
 	}
 }
 
