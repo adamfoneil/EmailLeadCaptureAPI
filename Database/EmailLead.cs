@@ -1,4 +1,6 @@
-﻿namespace EmailLeadCapture.API.Models;
+﻿using Dapper.Entities.Interfaces;
+
+namespace EmailLeadCapture.Database;
 
 public enum OptStatus
 {
@@ -8,7 +10,7 @@ public enum OptStatus
 	Out = 0
 }
 
-public class EmailLead
+public class EmailLead : IEntity<int>
 {
 	public int Id { get; set; }	
 	public string Application { get; set; } = default!;

@@ -1,4 +1,4 @@
-﻿using EmailLeadCapture.API.Models;
+﻿using EmailLeadCapture.Database;
 
 namespace EmailLeadCapture.API.Interfaces;
 
