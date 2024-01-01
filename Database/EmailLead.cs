@@ -11,7 +11,7 @@ public enum OptStatus
 	Out = 0
 }
 
-[Table("EmailLead")]
+[Table("email_lead")]
 public class EmailLead : IEntity<int>
 {
 	public int Id { get; set; }

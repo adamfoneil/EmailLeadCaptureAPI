@@ -11,7 +11,11 @@ public class ConnectionStrings
 	public string Default { get; set; } = default!;
 }
 
-public class LeadCaptureDatabase(IOptions<ConnectionStrings> options, ILogger<LeadCaptureDatabase> logger) : PostgreSqlDatabase(options.Value.Default, logger)
+public class LeadCaptureDatabase(IOptions<ConnectionStrings> options, ILogger<LeadCaptureDatabase> logger) : 
+	PostgreSqlDatabase(options.Value.Default, logger, new DefaultSqlBuilder() 
+	{ 
+		CaseConversion = CaseConversionOptions.Exact
+	})
 {
 	public EmailLeads EmailLeads => new(this);
 }
