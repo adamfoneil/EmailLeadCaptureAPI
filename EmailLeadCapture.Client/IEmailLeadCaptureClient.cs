@@ -12,7 +12,7 @@ public interface IEmailLeadCaptureClient
 	[Post("/optin/{leadId}")]
 	Task OptInAsync(string leadId);
 	[Get("/api/applications")]
-	Task<IEnumerable<Application>> GetApplicationsAsync();
+	Task<IEnumerable<Application>> GetApplicationsAsync([Header("api-key")]string apiKey);
 	[Post("/api/{applicationId}/save")]
-	Task<EmailLead> SaveLeadAsync(string applicationId, string email);
+	Task<EmailLead> SaveLeadAsync([Header("api-key")]string apiKey, string applicationId, string email);
 }

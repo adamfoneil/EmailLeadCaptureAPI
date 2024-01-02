@@ -1,4 +1,5 @@
-@inject IEmailLeadCaptureClient Client
+@using EmailLeadCapture.Shared
+@using Refit
 
 @if (!string.IsNullOrEmpty(HeadingText))
 {
@@ -7,13 +8,18 @@
 	</div>
 }
 
-<div class="d-flex align-items-center justify-content-center col-md-6 offset-md-3">
-	<input type="email" placeholder="your email" required class="me-2 form-control" />
-	<button class="btn btn-primary">@ButtonText</button>
-</div>
+<EditForm FormName="EmailForm" OnValidSubmit="Submit" Model="EmailLead" class="d-flex align-items-center justify-content-center col-md-6 offset-md-3">
+	<FluentValidationValidator />
+	<input type="email" @bind="EmailLead.Email" placeholder="your email" required class="me-2 form-control" />	
+	<button class="btn btn-primary" type="submit">@ButtonText</button>
+</EditForm>
 
 @code {
-	[Parameter]
+	private IEmailLeadCaptureClient? ApiClient;
+	private EmailLead EmailLead = new();
+	private EmailLeadValidator Validator = new();
+
+	[Parameter, EditorRequired]
 	public string ApiUrl { get; set; } = default!;
 
 	[Parameter]
@@ -27,4 +33,14 @@
 
 	[Parameter]
 	public string ButtonText { get; set; } = "Submit";
+
+	protected override void OnInitialized()
+	{
+		ApiClient = RestService.For<IEmailLeadCaptureClient>(ApiUrl);
+	}
+
+	private async Task Submit()
+	{
+		var result = await ApiClient!.SaveLeadAsync(ApiKey, ApplicationId, EmailLead.Email);
+	}
 }
