@@ -1,10 +1,9 @@
 using EmailLeadCapture.API;
 using EmailLeadCapture.API.EFData;
 using EmailLeadCapture.Database;
-using EmailLeadCapture.Shared;
 using HashidsNet;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Immutable;
+using EmailLead = EmailLeadCapture.Shared.EmailLead;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -73,19 +72,21 @@ apiRoutes.MapGet("/applications", async (LeadCaptureDbContext db, Hashids hashId
 	return await db.Applications.Select(row => new { row.Name, id = hashIds.Encode(row.Id) }).ToListAsync();
 });
 
-apiRoutes.MapPost("/{appId}/save", async (string appId, Hashids hashIds, LeadCaptureDatabase database, string email) =>
+apiRoutes.MapPost("/save", async (Hashids hashIds, LeadCaptureDatabase database, EmailLead emailLead) =>
 {
-	var applicationId = hashIds.DecodeSingle(appId);
+	var applicationId = hashIds.DecodeSingle(emailLead.ApplicationId);
 
-	await database.EmailLeads.MergeAsync(new()
+	var result = await database.EmailLeads.MergeAsync(new()
 	{
 		ApplicationId = applicationId,
-		Email = email
+		Email = emailLead.Email
 	});
 
 	var app = await database.Applications.GetAsync(applicationId);
 
 	// todo: send email with link to confirmation page
+
+	return new { id = hashIds.Encode(result.Id) };
 });
 
 apiRoutes.MapGet("/{appId}/leads", async (string appId, LeadCaptureDbContext db, Hashids hashIds, int page = 0) =>
@@ -96,7 +97,7 @@ apiRoutes.MapGet("/{appId}/leads", async (string appId, LeadCaptureDbContext db,
 		.Where(row => row.ApplicationId == applicationId && row.IsConfirmed && row.OptStatus == OptStatus.In)
 		.OrderBy(row => row.Email)
 		.Skip(page * pageSize).Take(pageSize)
-		.Select(row => new EmailLeadCapture.Shared.EmailLead() { Id = hashIds.Encode(row.Id), Email = row.Email })
+		.Select(row => new EmailLead() { Id = hashIds.Encode(row.Id), Email = row.Email })
 		.ToListAsync();
 });
 
