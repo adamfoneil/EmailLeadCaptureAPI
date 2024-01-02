@@ -1,4 +1,5 @@
-﻿using Dapper.Entities.Interfaces;
+﻿using Dapper.Entities.Abstractions.Interfaces;
+using Dapper.Entities.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -13,7 +14,7 @@ public enum OptStatus
 }
 
 [Table("email_lead")]
-public class EmailLead : IEntity<int>
+public class EmailLead : IEntity<int>, IAlternateKey
 {
 	public int Id { get; set; }
 	[ForeignKey(nameof(Application))]
@@ -25,4 +26,6 @@ public class EmailLead : IEntity<int>
 	public DateTime? ConfirmedDateUtc { get; set; }
 	public OptStatus OptStatus { get; set; } = OptStatus.In;
 	public DateTime? OptStatusChangedUtc { get; set; }
+
+	public IEnumerable<string> AlternateKeyColumns => [nameof(ApplicationId), nameof(Email)];
 }
