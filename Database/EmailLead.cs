@@ -22,6 +22,7 @@ public class EmailLead : IEntity<int>
 	public string Email { get; set; } = default!;
 	public bool IsConfirmed { get; set; }
 	public DateTime DateCreatedUtc { get; set; } = DateTime.UtcNow;	
+	public DateTime? ConfirmedDateUtc { get; set; }
 	public OptStatus OptStatus { get; set; } = OptStatus.In;
 	public DateTime? OptStatusChangedUtc { get; set; }
 }

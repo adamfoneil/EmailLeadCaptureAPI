@@ -17,13 +17,10 @@ public class LeadCaptureDatabase(IOptions<ConnectionStrings> options, ILogger<Le
 		CaseConversion = CaseConversionOptions.Exact
 	})
 {
-	public EmailLeads EmailLeads => new(this);
+	public BaseRepository<EmailLead> EmailLeads => new(this);
+	public BaseRepository<Application> Applications => new(this);
 }
 
 public class BaseRepository<TEntity>(LeadCaptureDatabase database) : Repository<LeadCaptureDatabase, TEntity, int>(database) where TEntity : IEntity<int>
-{
-}
-
-public class EmailLeads(LeadCaptureDatabase database) : BaseRepository<EmailLead>(database)
 {
 }

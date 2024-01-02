@@ -1,12 +1,13 @@
 ﻿using EmailLeadCapture.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Options;
 
 namespace EmailLeadCapture.API.EFData;
 
-public class LeadCaptureDbContext(string connectionString) : DbContext
+public class LeadCaptureDbContext(IOptions<ConnectionStrings> options) : DbContext()
 {
-	private readonly string ConnectionString = connectionString;
+	private readonly string ConnectionString = options.Value.Default;
 
 	public DbSet<EmailLead> EmailLeads { get; set; }
 	public DbSet<Application> Applications { get; set; }
@@ -29,6 +30,9 @@ public class LeadCaptureDbContextFactory : IDesignTimeDbContextFactory<LeadCaptu
 	public LeadCaptureDbContext CreateDbContext(string[] args)
 	{
 		var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-		return new(config.GetConnectionString("Default") ?? throw new Exception("connection string not found"));
+		var connectionStrings = new ConnectionStrings();
+		config.GetSection("ConnectionStrings").Bind(connectionStrings);
+		var options = Options.Create(connectionStrings);
+		return new(options);
 	}		
 }
