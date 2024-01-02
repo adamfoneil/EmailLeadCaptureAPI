@@ -55,11 +55,15 @@ apiRoutes.MapGet("/applications", async (LeadCaptureDbContext db, Hashids hashId
 apiRoutes.MapPost("/{appId}/save", async (string appId, Hashids hashIds, LeadCaptureDatabase database, string email) =>
 {
 	var applicationId = hashIds.DecodeSingle(appId);
+
 	await database.EmailLeads.SaveAsync(new()
 	{
 		ApplicationId = applicationId,
 		Email = email
 	});
+
+	var app = await database.Applications.GetAsync(applicationId);
+
 	// todo: send email with link to confirmation page
 });
 
