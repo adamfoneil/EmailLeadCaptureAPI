@@ -1,6 +1,7 @@
 using EmailLeadCapture.API;
 using EmailLeadCapture.API.EFData;
 using EmailLeadCapture.Database;
+using EmailLeadCapture.Shared;
 using HashidsNet;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Immutable;
@@ -95,6 +96,7 @@ apiRoutes.MapGet("/{appId}/leads", async (string appId, LeadCaptureDbContext db,
 		.Where(row => row.ApplicationId == applicationId && row.IsConfirmed && row.OptStatus == OptStatus.In)
 		.OrderBy(row => row.Email)
 		.Skip(page * pageSize).Take(pageSize)
+		.Select(row => new EmailLeadCapture.Shared.EmailLead() { Id = hashIds.Encode(row.Id), Email = row.Email })
 		.ToListAsync();
 });
 

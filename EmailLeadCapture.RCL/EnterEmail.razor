@@ -1,0 +1,30 @@
+@inject IEmailLeadCaptureClient Client
+
+@if (!string.IsNullOrEmpty(HeadingText))
+{
+	<div class="text-center mb-2">
+		@HeadingText
+	</div>
+}
+
+<div class="d-flex align-items-center justify-content-center col-md-6 offset-md-3">
+	<input type="email" placeholder="your email" required class="me-2 form-control" />
+	<button class="btn btn-primary">@ButtonText</button>
+</div>
+
+@code {
+	[Parameter]
+	public string ApiUrl { get; set; } = default!;
+
+	[Parameter]
+	public string ApiKey { get; set; } = default!;
+
+	[Parameter]
+	public string ApplicationId { get; set; } = default!;
+
+	[Parameter]
+	public string HeadingText { get; set; } = default!;
+
+	[Parameter]
+	public string ButtonText { get; set; } = "Submit";
+}

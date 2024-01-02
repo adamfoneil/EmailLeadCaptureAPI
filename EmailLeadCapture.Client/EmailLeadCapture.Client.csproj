@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\EmailLeadCapture.Shared\Application.cs" Link="Shared\Application.cs" />
+    <Compile Include="..\EmailLeadCapture.Shared\EmailLead.cs" Link="Shared\EmailLead.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Refit" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Shared\" />
+  </ItemGroup>
+
+</Project>
