@@ -16,17 +16,18 @@ builder.Services.AddAuthentication("AllowedKeys")
 	});
 
 builder.Services.AddAuthorization();
-
+builder.Services.AddRazorPages();
 builder.Services.Configure<ConnectionStrings>(builder.Configuration.GetSection("ConnectionStrings"));
 builder.Services.AddDbContext<LeadCaptureDbContext>();
 builder.Services.AddSingleton<LeadCaptureDatabase>();
 
 var app = builder.Build();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapGet("/", () => "AO Lead Capture API");
-
 MapApiEndpoints(app);
+app.MapRazorPages();
 
 app.Run();

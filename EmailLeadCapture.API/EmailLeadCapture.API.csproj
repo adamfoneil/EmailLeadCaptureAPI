@@ -24,7 +24,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Database\Database.csproj" />
-    <ProjectReference Include="..\EmailLeadCapture.Shared\EmailLeadCapture.Shared.csproj" />
   </ItemGroup>
 
 </Project>

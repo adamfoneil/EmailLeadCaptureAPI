@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EmailLeadCapture.Database;
+namespace ProductIdeas.Database;
 
 [Table("application")]
 public class Application : IEntity<int>

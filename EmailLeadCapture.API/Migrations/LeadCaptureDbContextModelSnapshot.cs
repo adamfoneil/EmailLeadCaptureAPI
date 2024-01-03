@@ -30,11 +30,6 @@ namespace EmailLeadCapture.API.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("MailgunApiKey")
-                        .IsRequired()
-                        .HasMaxLength(65)
-                        .HasColumnType("character varying(65)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -58,10 +53,10 @@ namespace EmailLeadCapture.API.Migrations
                     b.Property<int>("ApplicationId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime?>("ConfirmedDateUtc")
+                    b.Property<DateTime?>("ConfirmedUtc")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTime>("DateCreatedUtc")
+                    b.Property<DateTime>("CreatedUtc")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Email")
@@ -72,10 +67,10 @@ namespace EmailLeadCapture.API.Migrations
                     b.Property<bool>("IsConfirmed")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("OptStatus")
-                        .HasColumnType("integer");
+                    b.Property<bool>("IsOptedIn")
+                        .HasColumnType("boolean");
 
-                    b.Property<DateTime?>("OptStatusChangedUtc")
+                    b.Property<DateTime?>("OptChangedUtc")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");

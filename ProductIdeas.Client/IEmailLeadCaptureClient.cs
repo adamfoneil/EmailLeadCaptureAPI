@@ -1,7 +1,7 @@
-﻿using EmailLeadCapture.Shared;
+﻿using ProductIdeas.Shared;
 using Refit;
 
-namespace EmailLeadCapture.Client;
+namespace ProductIdeas.Client;
 
 public interface IEmailLeadCaptureClient
 {
@@ -14,5 +14,5 @@ public interface IEmailLeadCaptureClient
 	[Get("/api/applications")]
 	Task<IEnumerable<Application>> GetApplicationsAsync([Header("api-key")]string apiKey);
 	[Post("/api/save")]
-	Task<EmailLead> SaveLeadAsync([Header("api-key")]string apiKey, [Body(BodySerializationMethod.Serialized)]EmailLead emailLead);
+	Task<EmailLead> SaveLeadAsync([Header("api-key")]string apiKey, [Body]EmailLead emailLead);
 }

@@ -1,4 +1,4 @@
-﻿namespace EmailLeadCapture.Shared;
+﻿namespace ProductIdeas.Shared;
 
 public class EmailLead
 {

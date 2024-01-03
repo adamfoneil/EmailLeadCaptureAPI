@@ -3,7 +3,7 @@ using Dapper.Entities.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EmailLeadCapture.Database;
+namespace ProductIdeas.Database;
 
 [Table("email_lead")]
 public class EmailLead : IEntity<int>, IAlternateKey
