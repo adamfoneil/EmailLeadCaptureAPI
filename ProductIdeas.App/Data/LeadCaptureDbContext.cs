@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Options;
+using ProductIdeas.App.Data;
 using ProductIdeas.Database;
 
-namespace ProductIdeas.EFData;
+namespace ProductIdeas.Data;
 
 public class LeadCaptureDbContext(IOptions<ConnectionStrings> options) : DbContext()
 {

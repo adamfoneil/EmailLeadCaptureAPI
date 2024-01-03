@@ -1,6 +1,6 @@
 using HashidsNet;
 using ProductIdeas;
-using ProductIdeas.EFData;
+using ProductIdeas.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

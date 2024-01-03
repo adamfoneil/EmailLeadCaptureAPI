@@ -1,6 +1,6 @@
 ﻿using HashidsNet;
 using Microsoft.EntityFrameworkCore;
-using ProductIdeas;
+using ProductIdeas.App.Data;
 using ProductIdeas.EFData;
 using ProductIdeas.Shared;
 
