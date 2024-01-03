@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\EmailLeadCapture.Shared\Application.cs" Link="Shared\Application.cs" />
-    <Compile Include="..\EmailLeadCapture.Shared\EmailLead.cs" Link="Shared\EmailLead.cs" />
+    <Compile Include="..\ProductIdeas.Shared\Application.cs" Link="Shared\Application.cs" />
+    <Compile Include="..\ProductIdeas.Shared\EmailLead.cs" Link="Shared\EmailLead.cs" />
   </ItemGroup>
 
   <ItemGroup>
