@@ -1,9 +1,12 @@
 ﻿@page "/Input"
 @inject ILogger<Input> Logger
+@rendermode InteractiveServer
 
 <InputText type="email" @bind-Value="@TextValue" @bind-Value:after="OnChange" />
 
 <hr/>
+
+<InputText type="email" @bind-Value="@TextValue" @bind-Value:event="onchange" />
 
 <EditForm Model="formModel" OnSubmit="Submit" FormName="whatever">
 	<input type="email" @bind-value="formModel.Email" @bind-value:event="oninput" />
