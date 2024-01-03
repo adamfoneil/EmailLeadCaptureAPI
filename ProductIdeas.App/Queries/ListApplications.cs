@@ -1,5 +1,4 @@
 ﻿using Dapper.QX;
-using EmailLeadCapture.Database;
 using ProductIdeas.Database;
 
 namespace ProductIdeas.Queries;
