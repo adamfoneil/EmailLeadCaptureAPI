@@ -14,5 +14,5 @@ public interface IEmailLeadCaptureClient
 	[Get("/api/applications")]
 	Task<IEnumerable<Application>> GetApplicationsAsync([Header("api-key")]string apiKey);
 	[Post("/api/save")]
-	Task<EmailLead> SaveLeadAsync([Header("api-key")]string apiKey, EmailLead emailLead);
+	Task<EmailLead> SaveLeadAsync([Header("api-key")]string apiKey, [Body(BodySerializationMethod.Serialized)]EmailLead emailLead);
 }

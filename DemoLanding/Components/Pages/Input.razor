@@ -1,0 +1,36 @@
+﻿@page "/Input"
+@inject ILogger<Input> Logger
+
+<InputText type="email" @bind-Value="@TextValue" @bind-Value:after="OnChange" />
+
+<hr/>
+
+<EditForm Model="formModel" OnSubmit="Submit" FormName="whatever">
+	<input type="email" @bind-value="formModel.Email" @bind-value:event="oninput" />
+	<button>Submit</button>
+</EditForm>
+
+@code {
+	string TextValue = default!;
+	FormModel formModel = new();
+
+	protected override void OnInitialized()
+	{
+		Logger.LogInformation("hello");
+	}
+
+	class FormModel
+	{
+		public string Email { get; set; } = default!;
+	}
+
+	async Task Submit()
+	{
+		var email = formModel.Email;
+	}
+
+	async Task OnChange()
+	{
+		Logger.LogInformation(TextValue);
+	}
+}
