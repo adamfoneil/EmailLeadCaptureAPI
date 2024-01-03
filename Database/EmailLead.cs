@@ -5,14 +5,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EmailLeadCapture.Database;
 
-public enum OptStatus
-{
-	// okay to email
-	In = 1,
-	// don't email
-	Out = 0
-}
-
 [Table("email_lead")]
 public class EmailLead : IEntity<int>, IAlternateKey
 {
@@ -22,10 +14,10 @@ public class EmailLead : IEntity<int>, IAlternateKey
 	[MaxLength(50)]
 	public string Email { get; set; } = default!;
 	public bool IsConfirmed { get; set; }
-	public DateTime DateCreatedUtc { get; set; } = DateTime.UtcNow;	
-	public DateTime? ConfirmedDateUtc { get; set; }
-	public OptStatus OptStatus { get; set; } = OptStatus.In;
-	public DateTime? OptStatusChangedUtc { get; set; }
+	public DateTime CreatedUtc { get; set; } = DateTime.UtcNow;	
+	public DateTime? ConfirmedUtc { get; set; }
+	public bool IsOptedIn { get; set; } = true;
+	public DateTime? OptChangedUtc { get; set; }
 
 	public IEnumerable<string> AlternateKeyColumns => [nameof(ApplicationId), nameof(Email)];
 }
