@@ -1,4 +1,5 @@
 using HashidsNet;
+using Mailgun;
 using ProductIdeas;
 using ProductIdeas.Data;
 
@@ -18,11 +19,13 @@ builder.Services.AddAuthentication("AllowedKeys")
 		options.Values = allowedKeys ?? throw new Exception("missing AllowedKeys configuration");
 	});
 
+builder.Services.AddHttpClient();
 builder.Services.AddAuthorization();
 builder.Services.AddRazorPages();
 builder.Services.Configure<ConnectionStrings>(builder.Configuration.GetSection("ConnectionStrings"));
 builder.Services.AddDbContext<LeadCaptureDbContext>();
 builder.Services.AddSingleton<LeadCaptureDatabase>();
+builder.Services.AddSingleton<MailgunClient>();
 
 var app = builder.Build();
 

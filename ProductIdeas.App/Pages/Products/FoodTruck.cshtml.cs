@@ -1,12 +1,12 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+using ProductIdeas.Data;
 
-namespace ProductIdeas.App.Pages.Products
+namespace ProductIdeas.App.Pages.Products;
+
+public class FoodTruckModel(LeadCaptureDatabase database) : ProductPageBase(database)
 {
-    public class FoodTruckModel : PageModel
-    {
-        public void OnGet()
-        {
-        }
-    }
+	protected override int ApplicationId => 1;
+
+	public void OnGet()
+	{
+	}
 }
