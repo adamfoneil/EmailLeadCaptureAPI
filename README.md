@@ -1,4 +1,4 @@
-This is the backend portion of my [BizStartup.RCL](https://github.com/adamfoneil/BizStartup.RCL) project. This is a learning project from me that brings together several things:
+This is a learning project from me that brings together several things:
 
 - a new approach to hosting, using Docker, [DigitalOcean](https://www.digitalocean.com/) and [DotNetEngine](https://dotnetengine.com/). I'm not super happy with Azure, so I'm experimenting with this combo of services as an alternative
 - minimal API development in .NET8. There are neat new debugging capabilities for APIs you can learn about in this [@JamesMontemagno video](https://www.youtube.com/watch?v=uv_jK44WdLg)
